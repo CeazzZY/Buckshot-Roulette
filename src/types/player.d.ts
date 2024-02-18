@@ -1,6 +1,6 @@
 import { Tools } from "./tools";
 
-export interface player {
+export interface IPlayer {
   HP: number;
   tools: Tools[];
   locked: boolean;

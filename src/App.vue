@@ -2,37 +2,60 @@
 import { reactive } from "vue";
 
 import { gameInit } from "./utils/game";
-import { player } from "./types/player";
+import { IPlayer } from "./types/player";
+import { IGameData } from "./types/game";
 
-const p1 = reactive<player>({
+const p1 = reactive<IPlayer>({
   HP: 0,
   tools: [],
   locked: false,
 });
 
-const p2 = reactive<player>({
+const p2 = reactive<IPlayer>({
   HP: 0,
   tools: [],
   locked: false,
+});
+
+const gameData = reactive<IGameData>({
+  gameState: "ready",
+  clip: [],
+  realNum: 0,
+  emptyNum: 0,
+  turn: -1,
+  winner: null,
 });
 </script>
 
 <template>
-  <div className="main">
-    <div className="left"></div>
-    <div className="right"></div>
+  <div class="main">
+    <div :class="gameData.turn === 1 && 'isActive' + ' left'"></div>
+    <div :class="gameData.turn === 0 && 'isActive' + ' right'"></div>
 
-    <button className="centerButton" @click="gameInit(p1, p2)">开始游戏</button>
-    <button className="chooseLeft">p1</button>
-    <button className="chooseRight">p2</button>
-    <div className="p1Tools">
-      <div></div>
-      <div></div>
-    </div>
-    <div className="p2Tools"></div>
-    <div className="p1HP">{{ p1.HP }}</div>
-    <div className="p2HP">{{ p2.HP }}</div>
-    <div className="remind">p1选择</div>
+    <template v-if="gameData.gameState === 'ready'">
+      <button class="centerButton" @click="gameInit(p1, p2, gameData)">
+        开始游戏
+      </button>
+      <div class="winner">{{ gameData.winner + "获胜" }}</div>
+    </template>
+    <template v-if="gameData.gameState === 'working'">
+      <button class="chooseLeft">p1</button>
+      <button class="chooseRight">p2</button>
+      <div class="p1Tools">
+        {{ p1.tools.length }}
+      </div>
+      <div class="p2Tools">
+        {{ p2.tools.length }}
+      </div>
+      <div class="p1HP">{{ p1.HP }}</div>
+      <div class="p2HP">{{ p2.HP }}</div>
+      <div class="remind">
+        {{ (gameData.turn === 0 ? "p1" : "p2") + "的回合" }}
+      </div>
+      <div class="bullet">
+        {{ gameData.realNum + "实 / " + gameData.emptyNum + "空" }}
+      </div>
+    </template>
   </div>
 </template>
 
@@ -122,5 +145,16 @@ body {
   right: 0;
   height: 100%;
   width: 50%;
+}
+
+.isActive {
+  background-color: grey;
+}
+
+.bullet {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 </style>
