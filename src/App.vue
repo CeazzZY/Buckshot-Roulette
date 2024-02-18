@@ -1,12 +1,19 @@
 <script lang="ts" setup>
 import { reactive } from "vue";
 
-const p1 = reactive({
-  HP: 5,
+import { gameInit } from "./utils/game";
+import { player } from "./types/player";
+
+const p1 = reactive<player>({
+  HP: 0,
+  tools: [],
+  locked: false,
 });
 
-const p2 = reactive({
-  HP: 5,
+const p2 = reactive<player>({
+  HP: 0,
+  tools: [],
+  locked: false,
 });
 </script>
 
@@ -15,7 +22,7 @@ const p2 = reactive({
     <div className="left"></div>
     <div className="right"></div>
 
-    <button className="centerButton">开始游戏</button>
+    <button className="centerButton" @click="gameInit(p1, p2)">开始游戏</button>
     <button className="chooseLeft">p1</button>
     <button className="chooseRight">p2</button>
     <div className="p1Tools">
