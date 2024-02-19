@@ -10,12 +10,14 @@ import Start from "./components/Start.vue";
 import Tools from "./components/game/Tools.vue";
 
 const p1 = reactive<IPlayer>({
+  id: 0,
   HP: 0,
   tools: [],
   locked: false,
 });
 
 const p2 = reactive<IPlayer>({
+  id: 1,
   HP: 0,
   tools: [],
   locked: false,
@@ -29,6 +31,7 @@ const gameData = reactive<IGameData>({
   useKnife: false,
   turn: -1,
   winner: null,
+  magnifier: false,
 });
 </script>
 
@@ -57,6 +60,14 @@ const gameData = reactive<IGameData>({
       <div class="bullet">
         {{ gameData.realNum + "实 / " + gameData.emptyNum + "空" }}
       </div>
+      <div v-if="gameData.magnifier" class="magnifier">
+        {{ "下一颗子弹是：" + (gameData.clip[0] === 1 ? "实弹" : "空弹") }}
+      </div>
+      <div v-if="gameData.useKnife" class="knife">
+        已经使用刀，下次实弹造成伤害为2
+      </div>
+      <div v-if="p1.locked" class="p1Locked">已被拷住</div>
+      <div v-if="p2.locked" class="p2Locked">已被拷住</div>
     </template>
   </div>
 </template>
@@ -113,5 +124,31 @@ body {
   top: 80%;
   left: 50%;
   transform: translate(-50%, 0);
+}
+
+.magnifier {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.knife {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.p1Locked {
+  position: absolute;
+  top: 80%;
+  left: 10%;
+}
+
+.p2Locked {
+  position: absolute;
+  top: 80%;
+  right: 10%;
 }
 </style>

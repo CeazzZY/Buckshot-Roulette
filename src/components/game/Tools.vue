@@ -1,9 +1,21 @@
 <template>
   <div class="p1Tools">
-    <div v-for="item in p1.tools" class="tools">{{ item }}</div>
+    <div
+      v-for="(item, index) in p1.tools"
+      class="tools"
+      @click="useTools(item, p1, p2, gameData, index)"
+    >
+      {{ getToolsName(item) }}
+    </div>
   </div>
   <div class="p2Tools">
-    <div v-for="item in p2.tools" class="tools">{{ item }}</div>
+    <div
+      v-for="(item, index) in p2.tools"
+      class="tools"
+      @click="useTools(item, p2, p1, gameData, index)"
+    >
+      {{ getToolsName(item) }}
+    </div>
   </div>
 </template>
 
@@ -12,6 +24,7 @@ import { defineProps } from "vue";
 
 import { IPlayer } from "../../types/player";
 import { IGameData } from "../../types/game";
+import { useTools, getToolsName } from "../../utils/tools";
 
 const { gameData, p1, p2 } = defineProps<{
   gameData: IGameData;

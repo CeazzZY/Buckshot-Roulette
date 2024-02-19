@@ -8,4 +8,5 @@ export interface IGameData {
   useKnife: boolean;
   turn: -1 | 0 | 1;
   winner: string | null;
+  magnifier: boolean;
 }

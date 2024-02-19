@@ -6,7 +6,7 @@ import { getTools } from "./tools";
 
 export function startRound(p1: IPlayer, p2: IPlayer, gameData: IGameData) {
   //双方获取道具
-  const toolNum = Math.ceil(Math.random() * 4);
+  const toolNum = Math.ceil(Math.random() * 3);
   getTools(p1, toolNum);
   getTools(p2, toolNum);
 
@@ -15,7 +15,7 @@ export function startRound(p1: IPlayer, p2: IPlayer, gameData: IGameData) {
 }
 
 export function addBullet(gameData: IGameData) {
-  const total = Math.ceil(Math.random() * 8);
+  const total = Math.ceil(Math.random() * 6); //1-6
   for (let i = 0; i < total; i++) {
     const bullet = Math.floor(Math.random() * 2);
     if (bullet === realBullet) {
@@ -33,6 +33,8 @@ export function shot(
   p2: IPlayer,
   target: IPlayer
 ) {
+  gameData.magnifier = false;
+
   const bullet = gameData.clip.shift();
   const host = gameData.turn === 0 ? p1 : p2;
   const hitPoint = gameData.useKnife ? 2 : 1;
@@ -40,18 +42,22 @@ export function shot(
   if (bullet === realBullet) {
     target.HP = target.HP - hitPoint;
     gameData.realNum--;
-    changeTurn(gameData);
+    changeTurn(gameData, target);
   } else {
     gameData.emptyNum--;
     if (host !== target) {
-      changeTurn(gameData);
+      changeTurn(gameData, target);
     }
   }
   gameData.useKnife = false;
   afterShot(p1, p2, gameData);
 }
 
-function changeTurn(gameData: IGameData) {
+function changeTurn(gameData: IGameData, player: IPlayer) {
+  if (player.locked) {
+    player.locked = false;
+    return;
+  }
   const now = gameData.turn;
   if (now === 0) {
     gameData.turn = 1;
