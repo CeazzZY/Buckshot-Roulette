@@ -62,6 +62,6 @@ const { gameData, p1, p2 } = defineProps<{
 .tools {
   height: 15vh;
   width: 7vw;
-  background-color: red;
+  border: 1px solid black;
 }
 </style>
