@@ -1,18 +1,34 @@
-# Vue 3 + TypeScript + Vite
+<h1 align="center">恶魔轮盘赌</h1>
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 项目介绍
 
-## Recommended IDE Setup
+vue + ts
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 玩法介绍
 
-## Type Support For `.vue` Imports in TS
+游戏大体玩法遵循[恶魔轮盘赌](https://mikeklubnika.itch.io/buckshot-roulette)，采用双人本地对战的方式。  
+为了平衡先后手的影响。后手的玩家会在第一轮多获得一个道具
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## 启动方式
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+### 线上游玩
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+[线上地址](https://buckshot-roulette-one.vercel.app/)
+
+### 本地游玩
+
+拉去项目后
+
+```
+$ pnpm install
+$ pnpm dev
+```
+
+即可在本地启动项目
+
+## 更新计划
+
+- 美化 UI
+- 完善抽取道具，加入子弹的逻辑，避免出现极端情况
+- 加入一些动画效果
+- 加入音乐
