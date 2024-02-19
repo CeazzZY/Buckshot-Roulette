@@ -32,17 +32,9 @@ function getFirst(p1: IPlayer, p2: IPlayer, gameData: IGameData) {
   }
 }
 
-export function afterShot(p1: IPlayer, p2: IPlayer, gameDate: IGameData) {
-  if (p1.HP < 0) {
-    gameOver("p2", gameDate);
-  } else if (p2.HP < 0) {
-    gameOver("p1", gameDate);
-  } else if (gameDate.clip.length === 0) {
-    startRound(p1, p2, gameDate);
-  }
-}
 
-function gameOver(winner: string, gameData: IGameData) {
+
+export function gameOver(winner: string, gameData: IGameData) {
   gameData.gameState = "ready";
   gameData.winner = winner;
 }

@@ -4,6 +4,7 @@ import { reactive } from "vue";
 import { gameInit } from "./utils/game";
 import { IPlayer } from "./types/player";
 import { IGameData } from "./types/game";
+import { shot } from "./utils/round";
 
 const p1 = reactive<IPlayer>({
   HP: 0,
@@ -34,13 +35,19 @@ const gameData = reactive<IGameData>({
 
     <template v-if="gameData.gameState === 'ready'">
       <button class="centerButton" @click="gameInit(p1, p2, gameData)">
-        开始游戏
+        {{ gameData.winner ? "再来一次" : "开始游戏" }}
       </button>
-      <div class="winner">{{ gameData.winner + "获胜" }}</div>
+      <div v-if="gameData.winner" class="winner">
+        {{ gameData.winner + "获胜" }}
+      </div>
     </template>
     <template v-if="gameData.gameState === 'working'">
-      <button class="chooseLeft">p1</button>
-      <button class="chooseRight">p2</button>
+      <button class="chooseLeft" @click="shot(gameData, p1, p2, p1)">
+        {{ `打${gameData.turn === 0 ? "自己" : "对面"}` }}
+      </button>
+      <button class="chooseRight" @click="shot(gameData, p1, p2, p2)">
+        {{ `打${gameData.turn === 0 ? "对面" : "自己"}` }}
+      </button>
       <div class="p1Tools">
         {{ p1.tools.length }}
       </div>
@@ -156,5 +163,12 @@ body {
   top: 80%;
   left: 50%;
   transform: translate(-50%, 0);
+}
+
+.winner {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 60%;
 }
 </style>

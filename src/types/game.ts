@@ -1,6 +1,8 @@
+import { Bullet } from "./round";
+
 export interface IGameData {
   gameState: "ready" | "working";
-  clip: number[];
+  clip: Bullet[];
   realNum: number;
   emptyNum: number;
   turn: -1 | 0 | 1;
