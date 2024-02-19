@@ -35,9 +35,10 @@ export function shot(
 ) {
   const bullet = gameData.clip.shift();
   const host = gameData.turn === 0 ? p1 : p2;
+  const hitPoint = gameData.useKnife ? 2 : 1;
 
   if (bullet === realBullet) {
-    target.HP = target.HP - 1;
+    target.HP = target.HP - hitPoint;
     gameData.realNum--;
     changeTurn(gameData);
   } else {
@@ -46,6 +47,7 @@ export function shot(
       changeTurn(gameData);
     }
   }
+  gameData.useKnife = false;
   afterShot(p1, p2, gameData);
 }
 

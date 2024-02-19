@@ -5,6 +5,7 @@ export interface IGameData {
   clip: Bullet[];
   realNum: number;
   emptyNum: number;
+  useKnife: boolean;
   turn: -1 | 0 | 1;
   winner: string | null;
 }

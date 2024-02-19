@@ -23,6 +23,7 @@ const gameData = reactive<IGameData>({
   clip: [],
   realNum: 0,
   emptyNum: 0,
+  useKnife: false,
   turn: -1,
   winner: null,
 });
