@@ -32,9 +32,8 @@ function getFirst(p1: IPlayer, p2: IPlayer, gameData: IGameData) {
   }
 }
 
-
-
 export function gameOver(winner: string, gameData: IGameData) {
   gameData.gameState = "ready";
   gameData.winner = winner;
+  gameData.turn = -1;
 }
